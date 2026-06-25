@@ -1,35 +1,17 @@
 """
 Indian Stock Market Platform - Main Application Entry Point
-
-This is the main Streamlit application that orchestrates all pages and components.
-Streamlit automatically detects pages from the 'pages/' directory.
 """
 
 import streamlit as st
-import sys
-import os
-
-# Add current directory to path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-try:
-    from config import APP_CONFIG
-except ImportError:
-    # Fallback configuration if import fails
-    APP_CONFIG = {
-        'APP_NAME': 'Indian Stock Market Platform',
-        'APP_ICON': '📈',
-        'LAYOUT': 'wide',
-        'SIDEBAR_STATE': 'expanded',
-        'THEME': 'light',
-    }
+import pandas as pd
+from datetime import datetime
 
 # Configure Streamlit page settings
 st.set_page_config(
-    page_title=APP_CONFIG['APP_NAME'],
-    page_icon=APP_CONFIG['APP_ICON'],
-    layout=APP_CONFIG['LAYOUT'],
-    initial_sidebar_state=APP_CONFIG['SIDEBAR_STATE'],
+    page_title="Indian Stock Market Platform",
+    page_icon="📈",
+    layout="wide",
+    initial_sidebar_state="expanded",
 )
 
 # Custom CSS for better styling
@@ -49,11 +31,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
 def main():
     """
     Main application function.
-    Displays the dashboard homepage and navigation guide.
     """
     st.markdown('<div class="main-header">📈 Indian Stock Market Platform</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-header">Your comprehensive platform for stock market analysis and trading</div>', unsafe_allow_html=True)
@@ -92,18 +72,18 @@ def main():
     # Navigation Guide
     st.subheader("🧭 Navigation Guide")
     st.write("""
-    Use the **sidebar menu** (left side) to navigate between different sections:
+    ### Available Modules:
     
-    - **Dashboard**: Overview of market performance and portfolio
-    - **Market**: Explore stocks, indices, and market data
-    - **Watchlist**: Create and manage your watchlists
-    - **Portfolio**: Track your investments
-    - **Paper Trading**: Practice trading with virtual money
-    - **Technical Analysis**: Analyze stocks with technical indicators
-    - **News & Research**: Stay updated with latest financial news
-    - **Wallet**: Manage your account balance
-    - **Profile**: View and edit your profile
-    - **Settings**: Configure application preferences
+    1. **Dashboard** - Overview of market performance and portfolio
+    2. **Market** - Explore stocks, indices, and market data
+    3. **Watchlist** - Create and manage your watchlists
+    4. **Portfolio** - Track your investments
+    5. **Paper Trading** - Practice trading with virtual money
+    6. **Technical Analysis** - Analyze stocks with technical indicators
+    7. **News & Research** - Stay updated with latest financial news
+    8. **Wallet** - Manage your account balance
+    9. **Profile** - View and edit your profile
+    10. **Settings** - Configure application preferences
     """)
     
     st.divider()
@@ -126,14 +106,29 @@ def main():
     
     st.divider()
     
+    # Sample Data
+    st.subheader("📋 Sample Market Data")
+    
+    sample_data = {
+        'Symbol': ['INFY', 'TCS', 'RELIANCE', 'WIPRO', 'HDFCBANK'],
+        'Price': [1450.50, 3650.25, 2580.75, 425.30, 1620.80],
+        'Change %': [2.5, -1.2, 3.8, 1.5, -0.8],
+        'Volume': ['5.2M', '3.1M', '8.5M', '4.3M', '6.7M']
+    }
+    
+    df = pd.DataFrame(sample_data)
+    st.dataframe(df, use_container_width=True)
+    
+    st.divider()
+    
     # Footer
     st.markdown("""
     <div style='text-align: center; color: #999; margin-top: 2rem;'>
         <p>© 2024 Indian Stock Market Platform | Built with ❤️ using Streamlit</p>
         <p style='font-size: 0.9rem;'>Disclaimer: This is a demo platform. Always consult a financial advisor before investing.</p>
+        <p style='font-size: 0.85rem;'>Last Updated: 2024 | Version 1.0</p>
     </div>
     """, unsafe_allow_html=True)
-
 
 if __name__ == "__main__":
     main()
