@@ -1,0 +1,2 @@
+# Migrations directory for database schema changes
+# Each migration should be numbered: 001_initial_schema.sql, 002_add_table.sql, etc.
