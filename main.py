@@ -6,7 +6,23 @@ Streamlit automatically detects pages from the 'pages/' directory.
 """
 
 import streamlit as st
-from config import APP_CONFIG
+import sys
+import os
+
+# Add current directory to path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+try:
+    from config import APP_CONFIG
+except ImportError:
+    # Fallback configuration if import fails
+    APP_CONFIG = {
+        'APP_NAME': 'Indian Stock Market Platform',
+        'APP_ICON': '📈',
+        'LAYOUT': 'wide',
+        'SIDEBAR_STATE': 'expanded',
+        'THEME': 'light',
+    }
 
 # Configure Streamlit page settings
 st.set_page_config(
@@ -89,6 +105,24 @@ def main():
     - **Profile**: View and edit your profile
     - **Settings**: Configure application preferences
     """)
+    
+    st.divider()
+    
+    # Quick Stats
+    st.subheader("📊 Quick Stats")
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        st.metric(label="Market Status", value="Open", delta="✅ Live")
+    
+    with col2:
+        st.metric(label="Total Users", value="0", delta="")
+    
+    with col3:
+        st.metric(label="Total Trades", value="0", delta="")
+    
+    with col4:
+        st.metric(label="Platform Uptime", value="100%", delta="✅")
     
     st.divider()
     
